@@ -19,6 +19,7 @@
   apt:
     name: 
     - fish
+    - composer
     update_cache: yes
 
 # Must be run as your user.
@@ -35,3 +36,20 @@
     name: jonpugh
     shell: /usr/bin/fish
     state: present
+
+- name: Ensure systemd folder is present.
+  file:
+    state: directory
+    path: /sys/fs/cgroup/systemd
+
+- name: Mount cgroups
+  mount:
+    path: /sys/fs/cgroup/systemd
+    src: cgroup
+    opts: none,name=systemd
+    state: mounted
+    fstype: cgroup
+
+#     https://github.com/microsoft/WSL/issues/4189#issuecomment-518277265
+#     sudo mkdir /sys/fs/cgroup/systemd
+# sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd
