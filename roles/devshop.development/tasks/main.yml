@@ -1,0 +1,37 @@
+---
+# Created from https://github.com/lando/lando/issues/1723#issuecomment-636544224
+
+# This is always the same... we should use the devshop prepare ansible shell script instead?
+- name: Install Python3 Pip
+  become: yes
+  apt:
+    name:
+    - python3-pip
+    update_cache: yes
+
+# This took like 4-5 minutes!
+- name: Install Ansible
+  pip:
+    name:
+    - ansible 
+
+- name: Install Extra Packages
+  apt:
+    name: 
+    - fish
+    update_cache: yes
+
+# Must be run as your user.
+# - name: Install OMF
+#   command: curl -L https://github.com/oh-my-fish/oh-my-fish/raw/master/bin/install | fish
+
+# - name: Install OMF Theme
+#   command: omf install agnoster
+
+# @TODO: https://github.com/abertsch/Menlo-for-Powerline
+
+- name: Set default shell to fish
+  user:
+    name: jonpugh
+    shell: /usr/bin/fish
+    state: present

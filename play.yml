@@ -6,5 +6,5 @@
   become_method: sudo
   
   roles:
-  - ./
+  - roles/devshop.development
   - roles/geerlingguy.docker
