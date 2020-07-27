@@ -1,0 +1,10 @@
+- hosts: localhost
+  vars:
+    ansible_connection: local 
+    example: foo
+  become: yes
+  become_method: sudo
+  
+  roles:
+  - ./
+  - roles/geerlingguy.docker
